@@ -11,6 +11,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
+import 'dart:ui' as ui;
+import 'package:flutter/widgets.dart';
 
 void main() => runApp(MyApp());
 
@@ -66,18 +70,60 @@ class SecondRoute extends StatelessWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = [];
+  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   List<Widget> getWidgetOptions(BuildContext context) {
     if (_widgetOptions.length == 0) {
       _widgetOptions = <Widget>[
-        Text("WIP"),
+        ListView(
+          padding: const EdgeInsets.all(8),
+          children: <Widget>[
+            Image.network('https://pbs.twimg.com/media/Dy9XXNnX0AA97om.jpg'),
+            Text('Bienvenue sur votre médiathèque', style: optionStyle, textAlign: TextAlign.center),
+            Text('manga et animé', style: optionStyle, textAlign: TextAlign.center),
+            Text(''),
+            Text("Vous trouverez dans cette application une liste de mangas et d'animés qui vous sont fortement conseillés", style: optionStyle, textAlign: TextAlign.center),
+            Text(''),
+            Text("Bonne dégustation !", style: TextStyle(
+                fontSize: 40,
+                foreground: Paint()
+                  ..shader = ui.Gradient.linear(
+                    const Offset(0, 20),
+                    const Offset(150, 20),
+                    <Color>[
+                      Colors.indigo,
+                      Colors.lightBlueAccent,
+                    ],
+                  )
+            ), textAlign: TextAlign.center),
+          ],
+        ),
         ListView(
           children: this.mediaRow(animes, context),
         ),
         ListView(
           children: this.mediaRow(mangas, context),
         ),
-        Text("WIP"),
+        ListView(
+          padding: const EdgeInsets.all(8),
+          children: <Widget>[
+            Text(''),
+            Text(''),
+            Text(''),
+            Text(''),
+            Text('Ce programme a été codé avec amour par MikUwU et BagUwUtsla', style: optionStyle, textAlign: TextAlign.center),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Image.asset('assets/images/mikuuu.png', width: 100,height: 200,),
+                ),
+                Expanded(
+                  child: Image.asset('assets/images/trash.jpg', width: 100,height: 200,),
+                ),
+              ],
+            )
+          ],
+        ),
       ];
     }
     return _widgetOptions;
@@ -101,11 +147,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           },
           child: Row(
             children: [
-              Image.network(element.imageUrl, scale: 4),
+              Image.network(element.imageUrl, scale: 4, width: 100),
               Expanded(
                   child: Text(element.title,
                       textAlign: TextAlign.center,
-                      textScaleFactor: 1,
+                      textScaleFactor: 2,
                       softWrap: true))
             ],
           )));

@@ -1,6 +1,5 @@
 # Participants 
-DELIEGE Victor 
-VERGAERT Arthur
+DELIEGE Victor & VERGAERT Arthur
 
 # Installation 
 - Ouvrez une boîte de commandes

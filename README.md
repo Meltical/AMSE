@@ -1,16 +1,23 @@
-# tp1
+# Participants 
+DELIEGE Victor 
+VERGAERT Arthur
 
-A new Flutter project.
+# Installation 
+- Ouvrez une boîte de commandes
+- Placez vous là où vous comptez cloner le git
+- Tapez ensuite :
+```
+git clone https://github.com/MikUwU/AMSE
+cd AMSE
+flutter create .
+flutter run
+```
 
-## Getting Started
+# TP1 - Flutter
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Dans ce TP1 vous retrouverez une application android codée en dart.
+Cette application dispose de quatre onglets.
+Le premier onglet appelé "Home" représente l'accueil de l'application.
+Le deuxième onglet représente l'onglet animé, il montre une liste d'animé, avec une image, son titre et sa description.
+Le troisième onglet, l'onglet manga, montre quant à lui une liste de différents manga, avec une image du manga, son titre et sa description.
+Le quatrième onglet est un onglet info qui montre différente informations concernant l'application.

@@ -51,17 +51,12 @@ class SecondRoute extends StatelessWidget {
           backgroundColor: Color(int.parse("0xFF" + media.color)),
         ),
         body: ListView(children: [
-          Row(
-            children: [
-              Image.network(media.imageUrl, scale: 2),
-              Expanded(
-                  child: Text(media.title,
-                      textAlign: TextAlign.center,
-                      textScaleFactor: 4,
-                      softWrap: true))
-            ],
-          ),
-          Html(data: media.description)
+            Text(media.title,
+                textAlign: TextAlign.center,
+                textScaleFactor: 3,
+                softWrap: true),
+            Image.network(media.imageUrl),
+            Html(data: media.description)
         ]));
   }
 }

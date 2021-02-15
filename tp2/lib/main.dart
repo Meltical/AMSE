@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tp2/exo5.dart';
 
 import 'exo1.dart';
 import 'exo2a.dart';
@@ -87,6 +88,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     MaterialPageRoute(
                       builder: (context) =>
                           Exo2b(title: "Transformer une image animé"),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: FlutterLogo(size: 56.0),
+                title: Text('Exo 5'),
+                subtitle: Text('Transformer une image'),
+                trailing: Icon(Icons.play_arrow),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          Exo5(title: "Transformer une image"),
                     ),
                   );
                 },

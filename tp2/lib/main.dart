@@ -4,6 +4,7 @@ import 'package:tp2/exo5.dart';
 import 'exo1.dart';
 import 'exo2a.dart';
 import 'exo2b.dart';
+import 'exo4.dart';
 
 void main() {
   runApp(MyApp());
@@ -96,15 +97,32 @@ class _MyHomePageState extends State<MyHomePage> {
             Card(
               child: ListTile(
                 leading: FlutterLogo(size: 56.0),
-                title: Text('Exo 5'),
-                subtitle: Text('Transformer une image'),
+                title: Text('Exo 4'),
+                subtitle: Text('Affichage d une tuile'),
                 trailing: Icon(Icons.play_arrow),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          Exo5(title: "Transformer une image"),
+                          Exo4(title: "Affichage d une tuile"),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: FlutterLogo(size: 56.0),
+                title: Text('Exo 5'),
+                subtitle: Text('Génération du plateau de tuiles'),
+                trailing: Icon(Icons.play_arrow),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          Exo5(title: "Génération du plateau de tuiles"),
                     ),
                   );
                 },

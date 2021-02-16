@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tp2/exo5.dart';
+import 'package:tp2/exo5b.dart';
 
 import 'exo1.dart';
 import 'exo2a.dart';
+import 'exo5a.dart';
 
 void main() {
   runApp(MyApp());
@@ -86,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          Exo5(title: "Transformer une image"),
+                          Exo5a(title: "Transformer une image"),
                     ),
                   );
                 },

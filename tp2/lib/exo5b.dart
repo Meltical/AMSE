@@ -26,9 +26,9 @@ Widget croppedImageTile(AlignmentGeometry alignmentGeometry) {
 
 Tile tile = new Tile(imageURL: 'https://picsum.photos/512', alignment: Alignment(0, 0));
 
-class Exo5 extends StatelessWidget {
+class Exo5b extends StatelessWidget {
   final String title;
-  Exo5({Key key, @required this.title}) : super(key: key);
+  Exo5b({Key key, @required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

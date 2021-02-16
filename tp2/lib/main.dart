@@ -7,6 +7,7 @@ import 'exo4.dart';
 import 'exo5a.dart';
 import 'exo5b.dart';
 import 'exo5c.dart';
+import 'exo6a.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,11 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'TP2',
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'TP2'),
     );
   }
 }
@@ -161,6 +162,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     MaterialPageRoute(
                       builder: (context) => Exo5c(
                           title: "Génération du plateau de tuiles modulable"),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: FlutterLogo(size: 56.0),
+                title: Text('Exo 6a'),
+                subtitle: Text("Animation d'une tuile"),
+                trailing: Icon(Icons.play_arrow),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          Exo6a(title: "Animation d'une tuile"),
                     ),
                   );
                 },

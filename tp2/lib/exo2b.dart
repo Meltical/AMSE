@@ -23,9 +23,7 @@ class _Exo2b extends State<Exo2b> {
   bool _play = false;
 
   void animate(Timer t) {
-    if (_play) {
-      print(_scale);
-      print(_scale >= 2);
+    if (_play && this.mounted) {
       setState(() {
         _sliderRotateX = _sliderRotateX + 10 > 360
             ? _sliderRotateX + 10 - 360

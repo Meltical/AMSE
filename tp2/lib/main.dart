@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tp2/exo5.dart';
 
 import 'exo1.dart';
 import 'exo2a.dart';
@@ -7,6 +6,7 @@ import 'exo2b.dart';
 import 'exo4.dart';
 import 'exo5a.dart';
 import 'exo5b.dart';
+import 'exo5c.dart';
 
 void main() {
   runApp(MyApp());
@@ -144,6 +144,23 @@ class _MyHomePageState extends State<MyHomePage> {
                       builder: (context) => Exo5b(
                           title:
                               "Génération du plateau de tuiles depuis une image"),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: FlutterLogo(size: 56.0),
+                title: Text('Exo 5c'),
+                subtitle: Text('Génération du plateau de tuiles modulable'),
+                trailing: Icon(Icons.play_arrow),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Exo5c(
+                          title: "Génération du plateau de tuiles modulable"),
                     ),
                   );
                 },

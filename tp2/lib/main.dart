@@ -8,6 +8,7 @@ import 'exo5a.dart';
 import 'exo5b.dart';
 import 'exo5c.dart';
 import 'exo6a.dart';
+import 'exo6b.dart';
 
 void main() {
   runApp(MyApp());
@@ -179,6 +180,23 @@ class _MyHomePageState extends State<MyHomePage> {
                     MaterialPageRoute(
                       builder: (context) =>
                           Exo6a(title: "Animation d'une tuile"),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: FlutterLogo(size: 56.0),
+                title: Text('Exo 6b'),
+                subtitle: Text("Animation d'un plateau"),
+                trailing: Icon(Icons.play_arrow),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          Exo6b(title: "Animation d'un plateau"),
                     ),
                   );
                 },

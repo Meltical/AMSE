@@ -9,6 +9,7 @@ import 'exo5b.dart';
 import 'exo5c.dart';
 import 'exo6a.dart';
 import 'exo6b.dart';
+import 'exo7.dart';
 
 void main() {
   runApp(MyApp());
@@ -197,6 +198,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     MaterialPageRoute(
                       builder: (context) =>
                           Exo6b(title: "Animation d'un plateau"),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: FlutterLogo(size: 56.0),
+                title: Text('Exo 7'),
+                subtitle: Text("Jeu de Taquin"),
+                trailing: Icon(Icons.play_arrow),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Exo7(title: "Jeu de Taquin"),
                     ),
                   );
                 },

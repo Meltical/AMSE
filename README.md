@@ -8,6 +8,4 @@ DELIEGE Victor & VERGAERT Arthur
 ```bash
 git clone https://github.com/MikUwU/AMSE
 cd AMSE
-flutter create .
-flutter run
 ```

@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'dart:math' as math;
@@ -11,10 +12,10 @@ import 'dart:math' as math;
 math.Random random = new math.Random();
 
 class Tile {
-  String title;
+  int number;
   Color color;
 
-  Tile(this.title, this.color);
+  Tile(this.number, this.color);
 }
 
 // ==============
@@ -38,7 +39,7 @@ class TileWidget extends StatelessWidget {
         padding: EdgeInsets.all(15.0),
         child: Center(
           child: Text(
-            this.tile.title,
+            this.tile.number.toString(),
             style: TextStyle(
               fontSize: 20,
               color: Colors.black,
@@ -71,11 +72,12 @@ class PositionedTiles extends StatefulWidget {
 }
 
 class PositionedTilesState extends State<PositionedTiles> {
-  int emptyIndex, size, difficulty, moves = 0;
-  List<Widget> tiles;
-  bool playing = false;
+  int emptyIndex, size, difficulty, moves = 0, highScore = 0, lastMoveIndex;
+  List<TileWidget> tiles;
+  bool playing = false, win = false;
   String floatButtonString = "15";
   List<int> possibleMoves = <int>[];
+  Color colorBottomAppBar = Colors.pink[100];
 
   PositionedTilesState() {
     size = 4;
@@ -91,6 +93,7 @@ class PositionedTilesState extends State<PositionedTiles> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Expanded(
+            flex: 2,
             child: GridView.builder(
               itemBuilder: (context, index) {
                 return createWidgetFrom(tiles[index], index);
@@ -106,9 +109,62 @@ class PositionedTilesState extends State<PositionedTiles> {
               ),
             ),
           ),
-          CircleAvatar(
-            radius: 30,
-            child: Text(moves.toString()),
+          Center(
+            child: Container(
+              height: 50,
+              width: 150,
+              child: !win
+                  ? null
+                  : Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Gagner",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.deepOrange,
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.pink[100],
+                        border: Border.all(
+                          color: Colors.pinkAccent,
+                          width: 3,
+                        ),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+            ),
+          ),
+          Container(
+            height: 100,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.red,
+                    child: CircleAvatar(
+                      radius: 27,
+                      child: Text(moves.toString()),
+                      backgroundColor: Colors.pink[100],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.orange,
+                    child: CircleAvatar(
+                      radius: 27,
+                      child: Text(highScore == 0 ? "-" : highScore.toString()),
+                      backgroundColor: Colors.pink[100],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -121,18 +177,18 @@ class PositionedTilesState extends State<PositionedTiles> {
           ),
           onPressed: () {
             setState(() {
-              playing = !playing;
-              if (playing) {
+              if (!playing) {
+                moves = 0;
+                win = false;
                 emptyIndex = getEmptyIndex();
                 tiles = getTilesWithEmpty();
                 shuffle();
                 floatButtonString = "Reset";
+                colorBottomAppBar = Colors.grey[300];
               } else {
-                emptyIndex = null;
-                this.possibleMoves = <int>[];
-                tiles = getTiles();
-                floatButtonString = difficulty.toString();
+                idleState();
               }
+              playing = !playing;
             });
           },
           elevation: 2,
@@ -142,7 +198,7 @@ class PositionedTilesState extends State<PositionedTiles> {
       bottomNavigationBar: BottomAppBar(
         child: Container(
           height: 50,
-          color: Colors.pink[100],
+          color: colorBottomAppBar,
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,7 +215,6 @@ class PositionedTilesState extends State<PositionedTiles> {
     for (var i = 0; i < difficulty; i++) {
       swapTiles(this.possibleMoves[random.nextInt(this.possibleMoves.length)]);
     }
-    moves = 0;
   }
 
   onTap(index) {
@@ -203,8 +258,8 @@ class PositionedTilesState extends State<PositionedTiles> {
   }
 
   swapTiles(index) {
+    int tmpIndex = emptyIndex;
     setState(() {
-      moves++;
       if (emptyIndex + 1 == index) {
         tiles.insert(emptyIndex, tiles.removeAt(emptyIndex + 1));
         emptyIndex++;
@@ -212,20 +267,43 @@ class PositionedTilesState extends State<PositionedTiles> {
         tiles.insert(emptyIndex, tiles.removeAt(emptyIndex - 1));
         emptyIndex--;
       } else if (emptyIndex + size == index) {
-        Widget tmp = tiles.removeAt(index);
+        TileWidget tmp = tiles.removeAt(index);
         tiles.insert(index, tiles.elementAt(emptyIndex));
         tiles.removeAt(emptyIndex);
         tiles.insert(emptyIndex, tmp);
         emptyIndex += size;
       } else if (emptyIndex - size == index) {
-        Widget tmp = tiles.removeAt(index);
+        TileWidget tmp = tiles.removeAt(index);
         tiles.insert(index, tiles.elementAt(emptyIndex - 1));
         tiles.removeAt(emptyIndex);
         tiles.insert(emptyIndex, tmp);
         emptyIndex -= size;
       }
+      if (playing) {
+        if (lastMoveIndex != index) moves++;
+        lastMoveIndex = tmpIndex;
+        if (userHasWon()) {
+          win = true;
+          playing = false;
+          if (moves < highScore || highScore == 0) highScore = moves;
+          idleState();
+        }
+      }
     });
     getPossibleMoves();
+  }
+
+  idleState() {
+    lastMoveIndex = null;
+    emptyIndex = null;
+    this.possibleMoves = <int>[];
+    tiles = getTiles();
+    floatButtonString = difficulty.toString();
+    colorBottomAppBar = Colors.pink[100];
+  }
+
+  bool userHasWon() {
+    return listEquals(getTilesIndex(), getTilesInit()) ? true : false;
   }
 
   void getPossibleMoves() {
@@ -252,7 +330,7 @@ class PositionedTilesState extends State<PositionedTiles> {
             child: tileWidget,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Colors.red,
+                color: index == lastMoveIndex ? Colors.blue : Colors.red,
                 width: 5,
               ),
             ),
@@ -296,16 +374,25 @@ class PositionedTilesState extends State<PositionedTiles> {
     );
   }
 
-  List<Widget> getTilesWithEmpty() {
-    return List<Widget>.generate(
-        math.pow(size, 2),
-        (index) => index == emptyIndex
-            ? TileWidget(Tile(index.toString(), Colors.white))
-            : TileWidget(Tile(index.toString(), Colors.grey)));
+  List<int> getTilesIndex() {
+    return List<int>.generate(
+        math.pow(size, 2), (index) => tiles.elementAt(index).tile.number);
   }
 
-  List<Widget> getTiles() {
-    return List<Widget>.generate(math.pow(size, 2),
-        (index) => TileWidget(Tile(index.toString(), Colors.grey)));
+  List<int> getTilesInit() {
+    return List<int>.generate(math.pow(size, 2), (index) => index);
+  }
+
+  List<TileWidget> getTilesWithEmpty() {
+    return List<TileWidget>.generate(
+        math.pow(size, 2),
+        (index) => index == emptyIndex
+            ? TileWidget(Tile(index, Colors.white))
+            : TileWidget(Tile(index, Colors.grey)));
+  }
+
+  List<TileWidget> getTiles() {
+    return List<TileWidget>.generate(
+        math.pow(size, 2), (index) => TileWidget(Tile(index, Colors.grey)));
   }
 }

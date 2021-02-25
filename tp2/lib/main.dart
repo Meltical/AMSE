@@ -9,7 +9,8 @@ import 'exo5b.dart';
 import 'exo5c.dart';
 import 'exo6a.dart';
 import 'exo6b.dart';
-import 'exo7.dart';
+import 'exo7a.dart';
+import 'exo7b.dart';
 
 void main() {
   runApp(MyApp());
@@ -206,14 +207,30 @@ class _MyHomePageState extends State<MyHomePage> {
             Card(
               child: ListTile(
                 leading: FlutterLogo(size: 56.0),
-                title: Text('Exo 7'),
-                subtitle: Text("Jeu de Taquin"),
+                title: Text('Exo 7a'),
+                subtitle: Text("Jeu de Taquin v1"),
                 trailing: Icon(Icons.play_arrow),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Exo7(title: "Jeu de Taquin"),
+                      builder: (context) => Exo7a(title: "Jeu de Taquin v1"),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Card(
+              child: ListTile(
+                leading: FlutterLogo(size: 56.0),
+                title: Text('Exo 7b'),
+                subtitle: Text("Jeu de Taquin v2"),
+                trailing: Icon(Icons.play_arrow),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Exo7b(title: "Jeu de Taquin v2"),
                     ),
                   );
                 },

@@ -36,7 +36,7 @@ class TileWidget extends StatelessWidget {
     return Container(
       color: this.tile.color,
       child: Padding(
-        padding: EdgeInsets.all(15.0),
+        padding: EdgeInsets.all(0.0),
         child: Center(
           child: Text(
             this.tile.number.toString(),
@@ -51,9 +51,9 @@ class TileWidget extends StatelessWidget {
   }
 }
 
-class Exo7 extends StatelessWidget {
+class Exo7a extends StatelessWidget {
   final String title;
-  Exo7({Key key, @required this.title}) : super(key: key);
+  Exo7a({Key key, @required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
